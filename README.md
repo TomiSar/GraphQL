@@ -1,49 +1,119 @@
 # GraphQL Crash Course With Full Stack MERN Project
 
 ### init index.js file
-* npm init -y
+```
+npm init -y
+```
 
-### install dependencies
-* npm i express express-graphql graphql mongoose cors colors
-* npm i -D nodemon dotenv
+### Backend install dependencies (server)
+```
+npm i express express-graphql graphql mongoose cors colors
+npm i -D nodemon dotenv
+```
+
+### Create client react app
+```
+npx create-react-app client
+```
+
+### Frontend install dependencies (client)
+```
+npm i @apollo/client graphql react-router-dom react-icons
+```
 
 ### Mongo Compass
+```
 * ******:Sensei0455@tomisar.jb7l6.mongodb.net/mngt_db
+```
 
-### Start application
-* npm start
-* npm run dev (nodemon)
-* application running localhost:5000
+### Start application Frontend (client folder)/Backend
+```
+npm start --> localhost:4000 (frontend)
+npm run dev  GraphiQL --> http://localhost:5000/graphql (backend)
+```
 
-### Projects steps
-* Create Express Server
-* Start GraphQL
-* Start Schema
-* Client Type & Queries
-* Making Queries With GraphiQL
-* Project Type & Queries
-* Project & Client Relationship
-* Creating a MongoDB Database
-* Database Connection
-* Mongoose Models
-* Fetch Data From MongoDB
-* Client Mutations
-* Project Mutations
-* Start On The Client
-* Setting Up Apollo
-* Fetch & Display Clients
-* Delete Client Mutation
-* Apollo Cache
-* Create Client Mutation
-* Fetch & Display Projects
-* React Router & Pages Setup
-* Query Single Project
-* Client Info Component
-* Add Project Modal
-* Get Clients For Select
-* Add Project Mutation
-* Delete Project
-* Edit Project Form
-* Update Project Mutation
-* Cascade Project Delete
-* Wrap Up
+# GraphQL Queries & Mutations
+
+## Get names of all clients
+```
+{
+  clients {
+    name
+  }
+}
+```
+
+## Get a single client name and email
+```
+{
+  client(id: 1) {
+    name
+    email
+  }
+}
+```
+
+## Get name and status of all projects
+```
+{
+  projects {
+    name
+    status
+  }
+}
+```
+
+## Get a single project name, description along with the client name and email
+```
+{
+  project(id: 1) {
+    name
+    description,
+    client {
+      name
+      email
+    }
+  }
+}
+```
+
+## Create a new client and return all data
+```
+mutation {
+  addClient(name: "Tony Stark", email: "ironman@gmail.com", phone: "955-365-3376") {
+    id
+    name
+    email
+    phone
+  }
+}
+```
+
+## Delete a client and return id
+```
+mutation {
+  deleteClient(id: 1) {
+    id
+  }
+}
+```
+
+## Create a new project and return name and description
+```
+mutation {
+  addProject(name: "Mobile App", description: "This is the project description", status: "new", clientId: "1") {
+   name
+   description
+  }
+}
+```
+
+## Update a project status and return name and status
+```
+mutation {
+  updateProject(status: "completed") {
+   name
+   status
+  }
+}
+```
