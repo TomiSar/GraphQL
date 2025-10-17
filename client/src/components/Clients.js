@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/client";
-import ClientRow from "./ClientRow";
-import { GET_CLIENTS } from "../queries/clientQueries";
-import Spinner from "./Spinner";
+import { useQuery } from '@apollo/client';
+import ClientRow from './ClientRow';
+import { GET_CLIENTS } from '../queries/clientQueries';
+import Spinner from './Spinner';
 
 export default function Clients() {
   const { loading, error, data } = useQuery(GET_CLIENTS);
@@ -10,24 +10,28 @@ export default function Clients() {
 
   return (
     <>
-      {!loading && !error && (
-        <table className='table table-hover mt-3'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Client Id</th>
-              <th>Delete Client</th>
-            </tr>
-          </thead>
+      {!loading && !error && data ? (
+        <>
+          <h5 className='mt-3'>Clients (total: {data.clients.length})</h5>
+          <table className='table table-hover mt-3'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Client Id</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {data.clients.map((client) => (
-              <ClientRow key={client.id} client={client} />
-            ))}
-          </tbody>
-        </table>
+            <tbody>
+              {data.clients.map((client) => (
+                <ClientRow key={client.id} client={client} />
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : (
+        <h5 className='mt-3'>No Clients</h5>
       )}
     </>
   );

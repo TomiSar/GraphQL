@@ -1,4 +1,11 @@
 export default function ProjectCard({ project }) {
+  const statusColor =
+    project.status === 'Not Started'
+      ? 'red'
+      : project.status === 'In Progress'
+      ? 'blue'
+      : 'green';
+
   return (
     <div className='col-md-6'>
       <div className='card mb-3'>
@@ -9,8 +16,15 @@ export default function ProjectCard({ project }) {
               View
             </a>
           </div>
-          <p className='small'>
-            Status: <strong>{project.status}</strong>
+          <p className='small' style={{ fontStyle: 'italic' }}>
+            <strong>Status: </strong>
+            <strong
+              style={{
+                color: statusColor,
+              }}
+            >
+              {project.status}
+            </strong>
           </p>
         </div>
       </div>

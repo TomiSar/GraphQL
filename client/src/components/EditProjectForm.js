@@ -1,19 +1,21 @@
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { GET_PROJECT } from "../queries/projectQueries";
-import { UPDATE_PROJECT } from "../mutations/projectMutations";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { GET_PROJECT } from '../queries/projectQueries';
+import { UPDATE_PROJECT } from '../mutations/projectMutations';
 
 export default function EditProjectForm({ project }) {
   const [name, setName] = useState(project.name);
   const [description, setDescription] = useState(project.description);
+  const navigate = useNavigate();
   const [status, setStatus] = useState(() => {
     switch (project.status) {
-      case "Not Started":
-        return "new";
-      case "In Progress":
-        return "progress";
-      case "Completed":
-        return "completed";
+      case 'Not Started':
+        return 'new';
+      case 'In Progress':
+        return 'progress';
+      case 'Completed':
+        return 'completed';
       default:
         throw new Error(`Unknown status: ${project.status}`);
     }
@@ -28,10 +30,11 @@ export default function EditProjectForm({ project }) {
     event.preventDefault();
 
     if (!name || !description || !status) {
-      return alert("Please fill out all fields");
+      return alert('Please fill out all fields');
     }
 
     updateProject(name, description, status);
+    navigate('/');
   };
 
   return (
@@ -55,7 +58,7 @@ export default function EditProjectForm({ project }) {
             id='description'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-          ></textarea>
+          />
         </div>
         <div className='mb-3'>
           <label className='form-label'>Status</label>
@@ -70,7 +73,7 @@ export default function EditProjectForm({ project }) {
             <option value='completed'>Completed</option>
           </select>
         </div>
-        <button type='submit' className='btn btn-primary'>
+        <button className='btn btn-primary' type='submit'>
           Submit
         </button>
       </form>
