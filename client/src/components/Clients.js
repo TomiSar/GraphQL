@@ -10,7 +10,7 @@ export default function Clients() {
 
   return (
     <>
-      {!loading && !error && data ? (
+      {!loading && !error && data && data.clients.length > 0 ? (
         <>
           <h5 className='mt-3'>Clients (total: {data.clients.length})</h5>
           <table className='table table-hover mt-3'>
@@ -31,7 +31,9 @@ export default function Clients() {
           </table>
         </>
       ) : (
-        <h5 className='mt-3'>No Clients</h5>
+        <h5 className='mt-3'>
+          No Clients (Use New Client modal to add new clients)
+        </h5>
       )}
     </>
   );
