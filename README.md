@@ -1,5 +1,32 @@
 # GraphQL Crash Course With Full Stack MERN Project
 
+### Install all dependencies (server and client) from root
+
+```
+npm run install-all
+```
+
+### Application Frontend (client) / Backend (server) / API
+
+```
+npm start --> localhost:4000 (frontend)
+npm run dev --> http://localhost:5000 (backend)
+GraphiQL --> http://localhost:5000/graphql (API)
+```
+
+### Docs
+
+- https://graphql.org/learn/
+- https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+### Add .env file (for environment variables) in server folder
+
+```
+NODE_ENV=development
+PORT=5000
+MONGO_URI=mongodb+srv://{username}:{password}@{username}.jb7l6.mongodb.net/{database}
+```
+
 ### init index.js file
 
 ```
@@ -25,13 +52,6 @@ npx create-react-app client
 npm i @apollo/client graphql react-router-dom react-icons
 ```
 
-### Start application Frontend (client folder)/Backend
-
-```
-npm start --> localhost:4000 (frontend)
-npm run dev  GraphiQL --> http://localhost:5000/graphql (backend)
-```
-
 # GraphQL Queries & Mutations
 
 ## Get names of all clients
@@ -47,10 +67,11 @@ npm run dev  GraphiQL --> http://localhost:5000/graphql (backend)
 ## Get a single client name and email
 
 ```
-{
-  client(id: 1) {
+query {
+  client(id: "63e52e975e533c6eed28036d") {
     name
     email
+    phone
   }
 }
 ```

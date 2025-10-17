@@ -1,6 +1,6 @@
 // const { projects, clients } = require("../sampleData.js");
-const Project = require("../models/Project");
-const Client = require("../models/Client");
+const Project = require('../models/Project');
+const Client = require('../models/Client');
 
 const {
   GraphQLObjectType,
@@ -10,11 +10,11 @@ const {
   GraphQLList,
   GraphQLNonNull,
   GraphQLEnumType,
-} = require("graphql");
+} = require('graphql');
 
 // Project type
 const ProjectType = new GraphQLObjectType({
-  name: "Project",
+  name: 'Project',
   fields: () => ({
     id: { type: GraphQLID },
     clientId: { type: GraphQLString },
@@ -32,7 +32,7 @@ const ProjectType = new GraphQLObjectType({
 
 // Client type
 const ClientType = new GraphQLObjectType({
-  name: "Client",
+  name: 'Client',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -42,7 +42,7 @@ const ClientType = new GraphQLObjectType({
 });
 
 const RootQuery = new GraphQLObjectType({
-  name: "RootQuery",
+  name: 'RootQuery',
   fields: {
     projects: {
       type: new GraphQLList(ProjectType),
@@ -75,7 +75,7 @@ const RootQuery = new GraphQLObjectType({
 
 // Mutations
 const mutation = new GraphQLObjectType({
-  name: "Mutation",
+  name: 'Mutation',
   fields: {
     // Add a client
     addClient: {
@@ -118,14 +118,14 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
-            name: "ProjectStatus",
+            name: 'ProjectStatus',
             values: {
-              new: { value: "Not Started" },
-              progress: { value: "In Progress" },
-              completed: { value: "Completed" },
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
             },
           }),
-          defaultValue: "Not Started",
+          defaultValue: 'Not Started',
         },
         clientId: { type: GraphQLNonNull(GraphQLID) },
       },
@@ -158,11 +158,11 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
-            name: "ProjectStatusUpdate",
+            name: 'ProjectStatusUpdate',
             values: {
-              new: { value: "Not Started" },
-              progress: { value: "In Progress" },
-              completed: { value: "Completed" },
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
             },
           }),
         },
