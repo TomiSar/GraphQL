@@ -1,4 +1,4 @@
-# GraphQL Crash Course With Full Stack MERN Project
+# GraphQ Full Stack MERN Project
 
 ### Install all dependencies (server and client) from root
 
