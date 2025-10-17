@@ -9,6 +9,7 @@ npm run install-all
 ### Application Frontend (client) / Backend (server) / API
 
 ```
+npm run start-app (client/server)
 npm start --> localhost:4000 (frontend)
 npm run dev --> http://localhost:5000 (backend)
 GraphiQL --> http://localhost:5000/graphql (API)
