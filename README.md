@@ -65,11 +65,11 @@ npm i @apollo/client graphql react-router-dom react-icons
 }
 ```
 
-## Get a single client name and email
+## Get a single client name, email and phone
 
 ```
 query {
-  client(id: "63e52e975e533c6eed28036d") {
+  client(id: ObjectId) {
     name
     email
     phone
@@ -92,7 +92,7 @@ query {
 
 ```
 {
-  project(id: 1) {
+  project(id: ObjectId) {
     name
     description,
     client {
@@ -107,7 +107,7 @@ query {
 
 ```
 mutation {
-  addClient(name: "Tony Stark", email: "ironman@gmail.com", phone: "955-365-3376") {
+  addClient(name: "Test User", email: "test@gmail.com", phone: "+3584573997200") {
     id
     name
     email
@@ -120,7 +120,7 @@ mutation {
 
 ```
 mutation {
-  deleteClient(id: 1) {
+  deleteClient(id: ObjectId) {
     id
   }
 }
@@ -130,14 +130,14 @@ mutation {
 
 ```
 mutation {
-  addProject(name: "Mobile App", description: "This is the project description", status: "new", clientId: "1") {
+  addProject(name: "Mobile App", description: "This is the project description", status: "new", clientId: ObjectId) {
    name
    description
   }
 }
 ```
 
-## Update a project status and return name and status
+## Update a project status (new, progress, completed) and return name and status
 
 ```
 mutation {
