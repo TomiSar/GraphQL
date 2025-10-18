@@ -1,6 +1,7 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "project-management-app-client",
+  "version": "1.0.0",
+  "description": "Run client",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.7",
@@ -16,7 +17,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts start ",
+    "start": "react-scripts start ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

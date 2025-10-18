@@ -1,4 +1,10 @@
-# GraphQ Full Stack MERN Project
+# GraphQL Full Stack MERN Project
+
+## Tech Stack
+
+- Frontend: React, Apollo Client
+- Backend: Node.js, Express, GraphQL, Mongoose
+- Database: MongoDB Atlas
 
 ### Install all dependencies (server and client) from root
 
@@ -6,13 +12,29 @@
 npm run install-all
 ```
 
-### Application Frontend (client) / Backend (server) / API
+### Start Application Frontend (client) / Backend (server)/ API
 
 ```
 npm run start-app (client/server)
-npm start --> localhost:4000 (frontend)
-npm run dev --> http://localhost:5000 (backend)
+npm start --> http://localhost:4000 (frontend/client)
+npm run dev --> http://localhost:5000 (backend/server)
 GraphiQL --> http://localhost:5000/graphql (API)
+```
+
+### Start Application Frontend (client)
+
+```
+cd client
+npm run start --> running http://localhost:4000 (frontend/client)
+```
+
+### Start Application Backend (server)
+
+```
+cd server
+npm run start --> running http://localhost:5000 (backend/server)
+npm run dev --> running http://localhost:5000 with nodemon (backend/server)
+GraphiQL --> running http://localhost:5000/graphql (API)
 ```
 
 ### Docs
@@ -53,9 +75,9 @@ npx create-react-app client
 npm i @apollo/client graphql react-router-dom react-icons
 ```
 
-# GraphQL Queries & Mutations
+## GraphQL Queries & Mutations
 
-## Get names of all clients
+### Get names of all clients
 
 ```
 {
@@ -65,7 +87,7 @@ npm i @apollo/client graphql react-router-dom react-icons
 }
 ```
 
-## Get a single client name, email and phone
+### Get a single client name, email and phone
 
 ```
 query {
@@ -77,7 +99,7 @@ query {
 }
 ```
 
-## Get name and status of all projects
+### Get name and status of all projects
 
 ```
 {
@@ -88,7 +110,7 @@ query {
 }
 ```
 
-## Get a single project name, description along with the client name and email
+### Get a single project name, description along with the client name and email
 
 ```
 {
@@ -103,11 +125,11 @@ query {
 }
 ```
 
-## Create a new client and return all data
+### Create a new client and return all data
 
 ```
 mutation {
-  addClient(name: "Test User", email: "test@gmail.com", phone: "+3584573997200") {
+  addClient(name: "Test User", email: "test@gmail.com", phone: "012-3456789") {
     id
     name
     email
@@ -116,7 +138,7 @@ mutation {
 }
 ```
 
-## Delete a client and return id
+### Delete a client and return id
 
 ```
 mutation {
@@ -126,7 +148,7 @@ mutation {
 }
 ```
 
-## Create a new project and return name and description
+### Create a new project and return name and description
 
 ```
 mutation {
@@ -137,7 +159,7 @@ mutation {
 }
 ```
 
-## Update a project status (new, progress, completed) and return name and status
+### Update a project status (new, progress, completed) and return name and status
 
 ```
 mutation {
