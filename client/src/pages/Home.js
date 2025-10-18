@@ -11,7 +11,7 @@ export default function Home() {
         <AddProjectModal />
       </div>
       <Projects />
-      <hr />
+      <div className='border border-black' />
       <Clients />
     </>
   );

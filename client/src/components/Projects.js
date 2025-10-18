@@ -11,11 +11,14 @@ export default function Projects() {
   return (
     <>
       {data.projects.length > 0 && data.projects ? (
-        <div className='row mt-4'>
-          {data.projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <>
+          <h5 className='mt-3'>Projects</h5>
+          <div className='row mt-4'>
+            {data.projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </>
       ) : (
         <h5 className='mt-3'>
           No projects (Use New Project modal to add Project for existing client)

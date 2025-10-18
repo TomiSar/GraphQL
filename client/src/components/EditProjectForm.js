@@ -29,7 +29,7 @@ export default function EditProjectForm({ project }) {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (!name || !description || !status) {
+    if (!name || !description) {
       return alert('Please fill out all fields');
     }
 

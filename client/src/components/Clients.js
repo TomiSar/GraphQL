@@ -12,7 +12,7 @@ export default function Clients() {
     <>
       {!loading && !error && data && data.clients.length > 0 ? (
         <>
-          <h5 className='mt-3'>Clients (total: {data.clients.length})</h5>
+          <h5 className='mt-3'>Clients</h5>
           <table className='table table-hover mt-3'>
             <thead>
               <tr>
@@ -20,6 +20,8 @@ export default function Clients() {
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Client Id</th>
+                <th>Info</th>
+                <th>Delete</th>
               </tr>
             </thead>
 
