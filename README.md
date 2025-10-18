@@ -41,6 +41,7 @@ GraphiQL --> running http://localhost:5000/graphql (API)
 
 - https://graphql.org/learn/
 - https://getbootstrap.com/docs/5.3/getting-started/introduction/
+- https://react-icons.github.io/react-icons/
 
 ### Add .env file (for environment variables) in server folder
 
