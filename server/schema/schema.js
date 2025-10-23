@@ -15,14 +15,26 @@ const {
 // Project type
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
+  description: 'A project owned by a client',
   fields: () => ({
-    id: { type: GraphQLID },
-    clientId: { type: GraphQLString },
-    name: { type: GraphQLString },
-    description: { type: GraphQLString },
-    status: { type: GraphQLString },
+    id: { type: GraphQLID, description: 'Unique identifier for the project' },
+    clientId: {
+      type: GraphQLString,
+      description: 'ID of the client owning the project',
+    },
+    name: { type: GraphQLString, description: 'Name of the project' },
+    description: {
+      type: GraphQLString,
+      description: 'Detailed description of the project',
+    },
+    status: {
+      type: GraphQLString,
+      description:
+        'Current status of the project (Not Started/In Progress/Completed)',
+    },
     client: {
       type: ClientType,
+      description: 'Reference to the client who owns this project',
       resolve(parent, args) {
         return Client.findById(parent.clientId);
       },
@@ -33,19 +45,22 @@ const ProjectType = new GraphQLObjectType({
 // Client type
 const ClientType = new GraphQLObjectType({
   name: 'Client',
+  description: 'Client represents a customer who can have multiple projects',
   fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    phone: { type: GraphQLString },
+    id: { type: GraphQLID, description: 'Unique identifier for the client' },
+    name: { type: GraphQLString, description: 'The full name of the client' },
+    email: { type: GraphQLString, description: 'Client contact email address' },
+    phone: { type: GraphQLString, description: 'Client contact phone number' },
   }),
 });
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQuery',
+  description: 'Root query object for GraphQL API',
   fields: {
     projects: {
       type: new GraphQLList(ProjectType),
+      description: 'Get all projects in the system',
       resolve(parent, args) {
         return Project.find();
       },
@@ -53,18 +68,21 @@ const RootQuery = new GraphQLObjectType({
     project: {
       type: ProjectType,
       args: { id: { type: GraphQLID } },
+      description: 'Get a specific project by ID',
       resolve(parent, args) {
         return Project.findById(args.id);
       },
     },
     clients: {
       type: new GraphQLList(ClientType),
+      description: 'Get all clients in the system',
       resolve(parent, args) {
         return Client.find();
       },
     },
     client: {
       type: ClientType,
+      description: 'Get a specific client by ID',
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Client.findById(args.id);
@@ -76,10 +94,13 @@ const RootQuery = new GraphQLObjectType({
 // Mutations
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
+  description:
+    'Mutations for adding, deleting, and updating clients and projects',
   fields: {
     // Add a client
     addClient: {
       type: ClientType,
+      description: 'Add a new client to the system',
       args: {
         name: { type: GraphQLNonNull(GraphQLString) },
         email: { type: GraphQLNonNull(GraphQLString) },
@@ -97,6 +118,7 @@ const mutation = new GraphQLObjectType({
     // Delete a client
     deleteClient: {
       type: ClientType,
+      description: 'Delete a client and their associated projects',
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
@@ -112,6 +134,7 @@ const mutation = new GraphQLObjectType({
     // Add a project
     addProject: {
       type: ProjectType,
+      description: 'Add a new project associated with a client',
       args: {
         name: { type: GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLNonNull(GraphQLString) },
@@ -141,6 +164,7 @@ const mutation = new GraphQLObjectType({
     // Delete a project
     deleteProject: {
       type: ProjectType,
+      description: 'Delete a specific project',
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
@@ -151,6 +175,7 @@ const mutation = new GraphQLObjectType({
     // Update a project
     updateProject: {
       type: ProjectType,
+      description: 'Update project details',
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLNonNull(GraphQLString) },
