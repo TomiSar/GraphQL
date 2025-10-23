@@ -29,7 +29,7 @@ export default function ClientRow({ client }) {
       <td>{client.id}</td>
       <td>
         <button
-          className='btn btn-info btn-sm'
+          className='btn btn-success btn-sm'
           onClick={() => navigate(`/client/${client.id}`)}
         >
           <FaInfoCircle />

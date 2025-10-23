@@ -51,31 +51,6 @@ PORT=5000
 MONGO_URI=mongodb+srv://{username}:{password}@{username}.jb7l6.mongodb.net/{database}
 ```
 
-### init index.js file
-
-```
-npm init -y
-```
-
-### Backend install dependencies (server)
-
-```
-npm i express express-graphql graphql mongoose cors colors
-npm i -D nodemon dotenv
-```
-
-### Create client react app
-
-```
-npx create-react-app client
-```
-
-### Frontend install dependencies (client)
-
-```
-npm i @apollo/client graphql react-router-dom react-icons
-```
-
 ## GraphQL Queries & Mutations
 
 ### Get names of all clients
