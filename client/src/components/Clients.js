@@ -34,7 +34,7 @@ export default function Clients() {
         </>
       ) : (
         <h5 className='mt-3'>
-          No Clients (Use New Client modal to add new clients)
+          No Clients (Use New Client modal to add new client)
         </h5>
       )}
     </>

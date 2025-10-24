@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaList } from 'react-icons/fa';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CLIENTS } from '../queries/clientQueries';
@@ -24,6 +24,13 @@ export default function AddProjectModal() {
 
   // Get Clients for select
   const { loading, error, data } = useQuery(GET_CLIENTS);
+
+  // Select first client as default
+  useEffect(() => {
+    if (data && data.clients.length > 0) {
+      setClientId(data.clients[0].id);
+    }
+  }, [data]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +75,7 @@ export default function AddProjectModal() {
               <div className='modal-content'>
                 <div className='modal-header'>
                   <h1 className='modal-title fs-5' id='addProjectModalLabel'>
-                    New Project
+                    New Project Information
                   </h1>
                   <button
                     type='button'
@@ -119,7 +126,6 @@ export default function AddProjectModal() {
                         value={clientId}
                         onChange={(event) => setClientId(event.target.value)}
                       >
-                        <option value=''>Select Client</option>
                         {data.clients.map((client) => (
                           <option key={client.id} value={client.id}>
                             {client.name}

@@ -21,7 +21,8 @@ export default function Projects() {
         </>
       ) : (
         <h5 className='mt-3'>
-          No projects (Use New Project modal to add Project for existing client)
+          No projects (Use New Project modal to add Project for existing
+          client(s))
         </h5>
       )}
     </>
