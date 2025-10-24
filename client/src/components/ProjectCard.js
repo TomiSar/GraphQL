@@ -13,7 +13,7 @@ export default function ProjectCard({ project }) {
           <div className='d-flex justify-content-between align-items-center'>
             <h5 className='card-title'>{project.name}</h5>
             <a className='btn btn-light' href={`/project/${project.id}`}>
-              View
+              View Details
             </a>
           </div>
           <p className='small' style={{ fontStyle: 'italic' }}>

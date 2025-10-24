@@ -106,13 +106,13 @@ const mutation = new GraphQLObjectType({
         email: { type: GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const client = new Client({
           name: args.name,
           email: args.email,
           phone: args.phone,
         });
-        return client.save();
+        return await client.save();
       },
     },
     // Delete a client
@@ -151,14 +151,14 @@ const mutation = new GraphQLObjectType({
         },
         clientId: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const project = new Project({
           name: args.name,
           description: args.description,
           status: args.status,
           clientId: args.clientId,
         });
-        return project.save();
+        return await project.save();
       },
     },
     // Delete a project
@@ -191,8 +191,8 @@ const mutation = new GraphQLObjectType({
           }),
         },
       },
-      resolve(parent, args) {
-        return Project.findByIdAndUpdate(
+      async resolve(parent, args) {
+        return await Project.findByIdAndUpdate(
           args.id,
           {
             $set: {

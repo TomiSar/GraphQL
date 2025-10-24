@@ -69,9 +69,9 @@ export default function EditProjectForm({ project }) {
         <div className='mb-3'>
           <label className='form-label'>Name</label>
           <input
-            type='text'
             className={`form-control ${errors.name ? 'is-invalid' : ''}`}
             id='name'
+            type='text'
             value={name}
             onChange={(event) => {
               setName(event.target.value);

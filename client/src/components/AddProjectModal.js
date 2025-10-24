@@ -10,19 +10,19 @@ export default function AddProjectModal() {
   const [description, setDescription] = useState('');
   const [clientId, setClientId] = useState('');
   const [status, setStatus] = useState('new');
+  const [errors, setErrors] = useState({ name: '', description: '' });
 
   const [addProject] = useMutation(ADD_PROJECT, {
     variables: { name, description, clientId, status },
     update(cache, { data: { addProject } }) {
-      const { projects } = cache.readQuery({ query: GET_PROJECTS });
+      const existingProjects = cache.readQuery({ query: GET_PROJECTS });
       cache.writeQuery({
         query: GET_PROJECTS,
-        data: { projects: [...projects, addProject] },
+        data: { projects: [...(existingProjects?.projects || []), addProject] },
       });
     },
   });
 
-  // Get Clients for select
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
   // Select first client as default
@@ -32,23 +32,58 @@ export default function AddProjectModal() {
     }
   }, [data]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    if (name === '' || description === '' || status === '') {
-      return alert('Please fill in all fields');
+  const validateForm = () => {
+    let newErrors = { name: '', description: '' };
+    if (!name || name.trim() === '') {
+      newErrors.name = 'Name is required';
+    } else if (name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters long';
     }
 
-    addProject(name, description, clientId, status);
+    if (!description || description.trim() === '') {
+      newErrors.description = 'Description is required';
+    } else if (description.trim().length < 4) {
+      newErrors.description = 'Description must be at least 4 characters long';
+    }
 
-    setName('');
-    setDescription('');
-    setStatus('new');
-    setClientId('');
+    setErrors(newErrors);
+    return !newErrors.name && !newErrors.description;
   };
 
-  if (loading) return null;
-  if (error) return <p>Error: {error.message}</p>;
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!validateForm()) return;
+
+    try {
+      await addProject({ variables: { clientId, name, description, status } });
+
+      // hide bootstrap modal programmatically after successful addition
+      const modalElement = document.getElementById('addProjectModal');
+      if (modalElement) {
+        const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
+      }
+
+      // Reset form fields
+      setName('');
+      setDescription('');
+      setStatus('new');
+      setClientId('');
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        description: error.message || 'Adding project failed',
+      }));
+    }
+  };
+
+  const resetFrom = () => {
+    setName('');
+    setDescription('');
+    setStatus('');
+    setClientId(data.clients[0]?.id || '');
+  };
 
   return (
     <>
@@ -89,21 +124,43 @@ export default function AddProjectModal() {
                     <div className='mb-3'>
                       <label className='form-label'>Name</label>
                       <input
-                        className='form-control'
-                        type='text'
+                        className={`form-control ${
+                          errors.name ? 'is-invalid' : ''
+                        }`}
                         id='name'
+                        type='text'
                         value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        onChange={(event) => {
+                          setName(event.target.value);
+                          if (errors.name)
+                            setErrors((prev) => ({ ...prev, name: '' }));
+                        }}
+                        onBlur={validateForm}
                       />
+                      {errors.name && (
+                        <div className='invalid-feedback'>{errors.name}</div>
+                      )}
                     </div>
                     <div className='mb-3'>
                       <label className='form-label'>Description</label>
                       <textarea
-                        className='form-control'
+                        className={`form-control ${
+                          errors.description ? 'is-invalid' : ''
+                        }`}
                         id='description'
                         value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                      ></textarea>
+                        onChange={(event) => {
+                          setDescription(event.target.value);
+                          if (errors.description)
+                            setErrors((prev) => ({ ...prev, description: '' }));
+                        }}
+                        onBlur={validateForm}
+                      />
+                      {errors.description && (
+                        <div className='invalid-feedback'>
+                          {errors.description}
+                        </div>
+                      )}
                     </div>
                     <div className='mb-3'>
                       <label className='form-label'>Status</label>
@@ -133,13 +190,24 @@ export default function AddProjectModal() {
                         ))}
                       </select>
                     </div>
-                    <button
-                      className='btn btn-primary'
-                      data-bs-dismiss='modal'
-                      type='submit'
-                    >
-                      Submit
-                    </button>
+                    <>
+                      <div className='d-flex align-items-center justify-content-between mt-lg-5'>
+                        <button
+                          className='btn btn-info btn-lg'
+                          onClick={resetFrom}
+                          type='reset'
+                        >
+                          Reset
+                        </button>
+                        <button
+                          className='btn btn-success btn-lg'
+                          // data-bs-dismiss='modal'
+                          type='submit'
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </>
                   </form>
                 </div>
               </div>
