@@ -60,7 +60,7 @@ export default function AddClientModal() {
       await addClient();
 
       // hide bootstrap modal programmatically after successful addition
-      const modalElement = document.getElementById('addProjectModal');
+      const modalElement = document.getElementById('addClientModal');
       if (modalElement) {
         const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
         modalInstance.hide();
@@ -109,8 +109,9 @@ export default function AddClientModal() {
                 New Client Information
               </h1>
               <button
-                type='button'
                 className='btn-close'
+                id='closeAddClientModal'
+                type='button'
                 data-bs-dismiss='modal'
                 aria-label='Close'
               ></button>

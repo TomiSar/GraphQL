@@ -33,7 +33,7 @@ export default function Clients() {
           </table>
         </>
       ) : (
-        <h5 className='mt-3'>
+        <h5 className='mt-3 clients-section'>
           No Clients (Use New Client modal to add new client)
         </h5>
       )}

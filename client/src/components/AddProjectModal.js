@@ -13,7 +13,7 @@ export default function AddProjectModal() {
   const [errors, setErrors] = useState({ name: '', description: '' });
 
   const [addProject] = useMutation(ADD_PROJECT, {
-    variables: { name, description, clientId, status },
+    variables: { name, description, status, clientId },
     update(cache, { data: { addProject } }) {
       const existingProjects = cache.readQuery({ query: GET_PROJECTS });
       cache.writeQuery({

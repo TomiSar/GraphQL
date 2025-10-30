@@ -22,7 +22,7 @@ export default function ClientRow({ client }) {
   });
 
   return (
-    <tr>
+    <tr id='clientRow'>
       <td>{client.name}</td>
       <td>{client.email}</td>
       <td>{client.phone}</td>
@@ -30,13 +30,20 @@ export default function ClientRow({ client }) {
       <td>
         <button
           className='btn btn-success btn-sm'
+          id='infoClientBtn'
+          type='button'
           onClick={() => navigate(`/client/${client.id}`)}
         >
           <FaInfoCircle />
         </button>
       </td>
       <td>
-        <button className='btn btn-danger btn-sm' onClick={deleteClient}>
+        <button
+          className='btn btn-danger btn-sm'
+          id='deleteClientBtn'
+          type='button'
+          onClick={deleteClient}
+        >
           <FaTrash />
         </button>
       </td>

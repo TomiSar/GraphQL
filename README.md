@@ -37,11 +37,20 @@ npm run dev --> running http://localhost:5000 with nodemon (backend/server)
 GraphiQL --> running http://localhost:5000/graphql (API)
 ```
 
+### E2E tests Cypress.io with Cypress Test Runner
+
+```
+cd client
+npm run test:e2e
+npm run test:open (With browser and Cypress test runner)
+```
+
 ### Docs
 
 - https://graphql.org/learn/
 - https://getbootstrap.com/docs/5.3/getting-started/introduction/
 - https://react-icons.github.io/react-icons/
+- https://www.cypress.io/#create
 
 ### Add .env file (for environment variables) in server folder
 
