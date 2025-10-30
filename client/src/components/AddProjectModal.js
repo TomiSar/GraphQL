@@ -10,6 +10,7 @@ export default function AddProjectModal() {
   const [description, setDescription] = useState('');
   const [clientId, setClientId] = useState('');
   const [status, setStatus] = useState('new');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({ name: '', description: '' });
 
   const [addProject] = useMutation(ADD_PROJECT, {
@@ -52,6 +53,7 @@ export default function AddProjectModal() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
     if (!validateForm()) return;
 
@@ -75,6 +77,8 @@ export default function AddProjectModal() {
         ...prev,
         description: error.message || 'Adding project failed',
       }));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -202,9 +206,10 @@ export default function AddProjectModal() {
                         <button
                           className='btn btn-success btn-lg'
                           // data-bs-dismiss='modal'
+                          disabled={isSubmitting}
                           type='submit'
                         >
-                          Submit
+                          {isSubmitting ? 'Sumitting' : 'Submit'}
                         </button>
                       </div>
                     </>

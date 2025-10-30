@@ -8,6 +8,7 @@ export default function AddClientModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({ name: '', email: '', phone: '' });
 
   const [addClient] = useMutation(ADD_CLIENT, {
@@ -56,6 +57,7 @@ export default function AddClientModal() {
 
     if (!validateForm()) return;
 
+    setIsSubmitting(true);
     try {
       await addClient();
 
@@ -74,6 +76,8 @@ export default function AddClientModal() {
         ...prev,
         phone: error.message || 'Adding client failed',
       }));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -187,8 +191,12 @@ export default function AddClientModal() {
                     >
                       Cancel
                     </button>
-                    <button className='btn btn-success btn-lg' type='submit'>
-                      Submit
+                    <button
+                      className='btn btn-success btn-lg'
+                      type='submit'
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                   </div>
                 </>
